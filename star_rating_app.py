@@ -136,7 +136,7 @@ def menu() -> Tuple[str, str]:
         Tuple[str, str]: lowercase value, and original value of response
     """
     check = input("""What would you like to do? """)
-    return (check.casefold(), check)  # left as an example
+    return check.casefold(), check  # left as an example
 
 
 def run() -> None:
