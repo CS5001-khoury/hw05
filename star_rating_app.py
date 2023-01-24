@@ -13,6 +13,7 @@ import string
 
 _MIN_STARS = 1
 _MAX_STARS = 5
+# don't forget to add _SPACING here set to 2
 
 
 def add_movie(val : str = '') -> Tuple[str, int]:
@@ -112,7 +113,13 @@ def convert_rating(val: int) -> str:
 def print_movies(movies: List[Tuple[str, int]]) -> None:
     """Prints out a list of movies.
 
-    prints out the movies to the console along with star ratings. 
+    Prints out the movies to the console along with star ratings. 
+
+    The print will have the star ratings on the left
+    padded with _MAX_STARS+_SPACING total spaces before the movie title.
+    This means if the star rating is *, there will be six spaces 
+    before the movie title, whereas if the star rating
+    is ***** there will be two spaces
 
     Args:
         movies (List[Tuple[str, int]]): A list of movies 
