@@ -16,13 +16,12 @@ _MAX_STARS = 5
 # don't forget to add _SPACING here set to 2
 
 
-def add_movie(val : str = '') -> Tuple[str, int]:
+def add_movie(val: str = '') -> Tuple[str, int]:
     """
     Gets a movie and rating from the client.
     if not input is provided, get_movie_by_input()
     is called with its values returned.
 
-    
     For Example:
         >>> add_movie("v,5")
         ('V', 5)
@@ -51,14 +50,13 @@ def get_movie_by_input() -> Tuple[str, int]:
     than the rating. Uses get_valid_int to confirm
     rating is a number
 
-
-
     Returns:
         Tuple[str, int]: moving title, rating
     """
     movie = clean_title(input("Enter a movie: "))
     rating = get_valid_int(f"Enter a rating {_MIN_STARS}-{_MAX_STARS}: ")
     return (movie, rating)
+
 
 def clean_title(movie: str) -> str:
     """
