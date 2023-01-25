@@ -4,23 +4,23 @@
 
 For this assignment, you will be refracting your old Star Rating code, along with adding new functionality (features!). We hope the moment you started learning about lists, you started to reflect on this assignment. It was designed to use lists. 
 
-While this weeks assignment is only going to focus on Star Rating App, don't let yourself fall behind. There are a lot of nuances you are learning. 
+While this week's assignment is only going to focus on Star Rating App, don't let yourself fall behind. There are a lot of nuances you are learning. 
 
 ## Implement the Functions
-👉🏽 **TASK**   Use the [star_rating_app.py](star_rating_app.py) as a template to update star rating. You are free to pull old functions from Homework 04, and add additional functions if it helps you. Be careful and intentional about what you copy over! You don't want to introduce errors by accident. 
+👉🏽 **TASK**:   Use the [star_rating_app.py](star_rating_app.py) as a template to update star rating. You are free to pull old functions from Homework 04, and add additional functions if it helps you. Be careful and intentional about what you copy over! You don't want to introduce errors by accident. 
 
 Each function is detailed with expressive comments. You will also notice there are type hints in the file.
 
 Let's work through an example:
 
 ```python
-def add_movie(val : str = '') -> Tuple[str, int]:
+def add_movie(val: str = '') -> Tuple[str, int]:
     """
     Gets a movie and rating from the client.
     if not input is provided, get_movie_by_input()
     is called with its values returned.
 
-    
+
     For Example:
         >>> add_movie("v,5")
         ('V', 5)
@@ -48,7 +48,8 @@ This says, add_movie can now take an optional string argument. If the string is 
 use the get_movie_by_input() function, returning the results.  If a string is provided, you can
 assume there is a comma, and split on that string. You will also want to look at `clean_title(str) -> str`.
 
-In the type hints, the contents in the brackets are the types is side the tuple or list. 
+In the type hints, the contents in the brackets are the types inside the tuple or list. So Tuple\[str, int],
+means a tuple with an string value, and int value should be returned. 
 
 ### Building a list of tuples?
 
@@ -61,13 +62,13 @@ What would you like to do? Jurassic Shark , 1
 What would you like to do? Jurassic Park, 3
 What would you like to do? It's a wonderful life,4
 ```
-Would create an underline structure of
+Would create an underlining structure of 
 
 ```python
 [('V', 5), ('Jurassic Shark', 1), ('Jurassic Park', 3), ("It's a wonderful life", 4)]
 ```
 
-That structure (a List[Tuple[str, int]]) would be passed into `print_movie(movies)`, when then loops
+That structure (a List[Tuple[str, int]]) would be passed into `print_movie(movies)`, which then loops
 through the list, and converts the `int` part of the tuple to stars using your  `convert_rating(val: int) -> str` which can be taken from Homework 04. 
 
 The output of the list above should look like the following:
@@ -95,7 +96,7 @@ What would you like to do? list
 What would you like to do? exit
 ```
 
-> Notice that spacing matters now! We will not be removing spaces in the tests, so you will want to review string format. 
+> Important! Spacing matters now! We will not be removing spaces in the tests, so you will want to review string format. 
 
 ### Multiple Return Values?
 
@@ -107,15 +108,23 @@ In `menu()` you see we modified it to return two values. These two values are au
 1. Often when you refactor, you start with what you are not going to change. In this case, two functions will remain the same from Homework 04. 
    * get_valid_int(prompt: str) -> int
    * convert_rating(val: int) -> str
-2. Then start at the simplest function that can tested individually.  Good targets are
+2. Then start at the simplest function that can tested individually. A good target is
    * clean_title(str) -> str
 3. Then build up from there, so maybe add_movie, and just see if you can make the tuple.
+
+### Remember the mantra
+
+1. Define
+2. Document
+3. Implement
+4. Test
+
 
 The question then goes how can you test all this, if the main program isn't running yet?
 
 ## Writing Tests
 
-👉🏽 **TASK** Using examples from past assignments, create test_star_rating.py. At the bare minimum you should include tests for
+👉🏽 **TASK**: Using examples from past assignments, create test_star_rating.py. At the bare minimum you should include tests for
 * clean_title
 * convert_rating
 * add_movie
@@ -126,27 +135,34 @@ As with before, your new function should prepend test_, so the function that tes
 
 ## Final Step: Reflect
 
-This assignment will take some research and looking up tutorials (though the resources below are good places to start). Refactoring code has a very different feeling than building code from scratch. What are some of your thoughts and feelings of this application as it grows? What are some features you would like to see in the future? What features would you expect to see.
+This assignment will take some research and looking up tutorials (though the resources below are good places to start). Refactoring code has a very different feeling than building code from scratch. 
+* What are some of your thoughts and feelings of this application as it grows? 
+* What are some features you would like to see in the future? 
+* What features would you expect to see?
 
-In addition to answering the above prompt in your README.md, please take a moment to describe the differences between mutable and immutable. Can you use code examples as part of your description. 
+* In addition to answering the above prompt in your README.md, please take a moment to describe the differences between mutable and immutable. Can you use code examples as part of your description. 
 
-Understanding how immutable works, why do you think python would default to return tuples when more than one value is returned as compared to returning lists? 
+* Understanding how immutable works, why do you think python would default to return tuples when more than one value is returned as compared to returning lists? 
 
 As a reminder, you are free to ask these questions on MS Teams, as long as you further the questions with thoughts and discussions. Concepts are free game for chatting (just don't cut and past others answers) :) 
 
 ## 📝 Grading Rubric
 
+While we provide tests, reminder, you should test your own code before submitting!
 
-Add (AG) and (MG) next to tiers, add major conditions to meet to pass each tier. 
-
-1. Learning ()
-   * 
-2. Approaching  ()
-   * 
-3. Meets  ()
-   * 
-4. Exceeds  ()
-   * 
+1. Learning (AG)
+   * The program still works with basic input - same input tested in HW04.
+2. Approaching  (AG)
+   * Clean Title works with simple inputs
+   * add movie works with simple strings
+   * print_movies prints directly from a list of tuples
+3. Meets  (AG)
+   * Clean input works with difficult / hard strings
+   * add movie works with harder strings
+   * a full run using the new input sequence option works properly
+   * passes pep8 style checker
+4. Exceeds  (MG)
+   * README.md added that includes answers to the reflection questions along with self-reflection.
 
 
 AG - Auto-graded  
