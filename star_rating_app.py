@@ -37,6 +37,8 @@ def add_movie(val : str = '') -> Tuple[str, int]:
         Enter a rating 1-5: 
         ('Avatar', 3)
 
+    Args:
+        val (str, optional): movie to add if provided as a commas separated value. Defaults to ''.
 
     Returns:
         Tuple[str, int]: Movie and int rating 
