@@ -164,6 +164,7 @@ While we provide tests, reminder, you should test your own code before submittin
 4. Exceeds  (MG)
    * README.md added that includes answers to the reflection questions along with self-reflection.
    * test_star_rating_app.py is included and includes valid tests for star_rating_app.py
+   * Follows good coding practices we have covered including docstrings and comments. 
 
 
 AG - Auto-graded  
