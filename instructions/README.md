@@ -118,12 +118,9 @@ The question then goes how can you test all this, if the main program isn't runn
 
 ## Writing Tests
 
-👉🏽 **TASK**: Using examples from past assignments, create test_star_rating.py. At the bare minimum you should include tests for
-* clean_title
-* convert_rating
-* add_movie
+👉🏽 **TASK**: Using examples from past assignments, use [test_star_rating_app.py](../test_star_rating_app.py). 
 
-But it is possible to test every function. Just include in the comments the input/output you expect. 
+You need to include two tests (ideally more) for every function *except* `menu()`, `run()`, and `print_movies(...)`. That is because every function besides those three are pure functions, meaning they do not have any side effects, and only return a value based on the input. We encourage you to think about your edge cases, and make sure you test those specifically. Eventually, you will not have an autograder for classes, so it is important to not rely on that testing for you. Instead, think about what specific conditions can be tested for each function, and write tests for those.
 
 As with before, your new function should prepend test_, so the function that tests clean_title, should be `test_clean_title`.
 
