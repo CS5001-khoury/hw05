@@ -11,16 +11,54 @@ and a rating for each movie.
 from typing import List, Tuple
 import string
 
+# use these constants for the messages to make sure they are consistent
+_WELCOME_MESSAGE = """Welcome to the movie tracker!\nEnter a movie and rating to add it to the list."""
+_GOODBYE_MESSAGE = """Thanks for using the movie tracker!\nSadly, movies will not be saved, as we still need to learn how to write to files."""
+
+_PROMPT = """What would you like to do? """
+_HELP_MESSAGE = """
+You have the following command options for the movie tracker. 
+    add movie,rating: add a movie and rating to the list
+                        examples: 
+                            ? add Princess Bride,10   
+                            ? add Jurassic Shark,1
+    list [filter]: list all movies and ratings, contains optional filters
+                        examples:
+                            ? list
+                            ? list > 3
+                            ? list < 2
+                            ? list = 5
+                            ? list Bride
+    help: print this help message
+    exit: exit the movie tracker
+""".strip()
+
+
+# COMMAND OPTION RETURNS
+_ADD_COMMAND = "add"
+_LIST_COMMAND = "list"
+_EXIT_COMMAND = "exit"
+
+# you can use this list for something like the following
+# if command in _FILTER_OPERATION_OPTIONS:  
+#    do something
+# else:
+#    assume it is a movie title
+_FILTER_OPERATION_OPTIONS = ['<', '>', '=', '<=', '>=', '!=']
+
+# some program constants
 _MIN_STARS = 1
 _MAX_STARS = 5
-# don't forget to add _SPACING here set to 2
+_SPACER = 2
 
 
-def add_movie(val: str = '') -> Tuple[str, int]:
+def convert_str_movie_tuple(val: str) -> Tuple[str, int]:
     """
-    Gets a movie and rating from the client.
-    if not input is provided, get_movie_by_input()
-    is called with its values returned.
+    Converts a string in the format of "movie,rating" to a tuple
+    It will clean up the title by calling clean_title, and will
+    convert the rating to an int. This function assumes the string
+    is correct, and in the format of "movie,rating" where movie is
+    a string and rating is an int. 
 
     For Example:
         >>> add_movie("v,5")
@@ -30,38 +68,16 @@ def add_movie(val: str = '') -> Tuple[str, int]:
         >>> add_movie("   JurAssic shARk  ,    1  ")
         ('Jurassic Shark', 1)
 
-        assume avatar and 3 are entered
-        >>> add_movie()              # doctest: +NORMALIZE_WHITESPACE
-        Enter a movie:
-        Enter a rating 1-5: 
-        ('Avatar', 3)
-
-    Args:
-        val (str, optional): movie to add if provided as a commas separated value. Defaults to ''.
-
     Returns:
         Tuple[str, int]: Movie and int rating 
     """
-    return ('', 0) # replace
-
-
-def get_movie_by_input() -> Tuple[str, int]:
-    """Gets a movie by input, first asking for the movie 
-    than the rating. Uses get_valid_int to confirm
-    rating is a number
-
-    Returns:
-        Tuple[str, int]: moving title, rating
-    """
-    movie = clean_title(input("Enter a movie: "))
-    rating = get_valid_int(f"Enter a rating {_MIN_STARS}-{_MAX_STARS}: ")
-    return (movie, rating)
+    pass # replace with your code
 
 
 def clean_title(movie: str) -> str:
     """
     Cleans a string stripping trailing and leading whitespaces,
-    and converts it to title case. 
+    and converts it to title case (capwords). 
 
     Examples:
         >>> clean_title("     v")
@@ -79,73 +95,130 @@ def clean_title(movie: str) -> str:
     Returns:
         str : the movie in title case, and leading and trailing spaces removed
     """
-    return '' #replace
+    pass # replace with your code
 
 
-def get_valid_int(prompt: str) -> int:
-    """Prompts the user for an int value, and keep
-    repeating until a numeric value is entered.
-    Will not accept negative or decimal values (every number must be a digit)
-
-    Args:
-        prompt (str): the string to prompt the client with
-
-    Returns:
-        int: the final value
-    """
-    return 0 # replace with 04 homework
-
-def convert_rating(val: int) -> str:
+def convert_rating(val: int, min_stars: int = _MIN_STARS, max_stars: int = _MAX_STARS) -> str:
     """Converts rating to stars (*) equal
-    to the rating. Any value over _MAX_STARS will only
-    return _MAX_STARS stars, and any value under _MIN_STARS
-    will return _MIN_STARS star.
+    to the rating. Any value over max_stars will only
+    return max_stars stars, and any value under min_stars
+    will return min_stars star.
 
     Args:
         val (int): the rating value
 
     Returns:
-        str: stars between _MIN_STARS and _MAX_STARS
+        str: stars between min_stars and max_stars
     """
-    return '*' # replace with 04 homework
+    pass # replace with your code
 
 
-def print_movies(movies: List[Tuple[str, int]]) -> None:
+def check_filter(movie: Tuple[str, int], filter: str) -> bool:
+    """Checks if the movie title contains the filter.
+
+    The filter can either be a string  (case insensitive) that will map to the title,
+    or a filter operation and a number. The filter operation can be
+    one of the following: <, >, =, <=, >=, !=. Which is meant to check
+    the rating of the movie based on the number that follows. 
+
+    if the empty string ("") is passed in, then the function will return True.
+
+    Examples:
+        >>> check_filter(("Princess Bride", 10), "Bride")
+        True
+        >>> check_filter(("Princess Bride", 10), "bride")
+        True
+        >>> check_filter(("Princess Bride", 10), "> 3")
+        True
+        >>> check_filter(("Princess Bride", 10), "< 3")
+        False
+        >>> check_filter(("Princess Bride", 10), "= 10")
+        True
+        >>> check_filter(("Princess Bride", 10), "= 11")
+        False
+        >>> check_filter(("Princess Bride", 10), "!= 10")
+        False
+        >>> check_filter(("Princess Bride", 10), "")
+        True
+
+
+    Args:
+        movie (Tuple[str, int]): The movie tuple
+        filter (str): The filter to check
+
+    Returns:
+        bool: True the movie meets the filter requirements.
+    """
+    pass # replace with your code
+
+
+def print_movies(movies: List[Tuple[str, int]], filter: str = '', spacer: int = _SPACER, max_stars: int = _MAX_STARS) -> None:
     """Prints out a list of movies.
 
     Prints out the movies to the console along with star ratings. 
 
-    The print will have the star ratings on the left
-    padded with _MAX_STARS+_SPACING total spaces before the movie title.
-    This means if the star rating is *, there will be six spaces 
-    before the movie title, whereas if the star rating
-    is ***** there will be two spaces
+    Will filter the movies before printing based on the filter 
+    passed into the function. See: check_filter() for more details.
+
+    Uses the string format
+        f"{convert_rating(rating):<{max_stars + spacer}}{movie}"
+
+    For grading purposes, print the movies in the order that they
+    appear in the list, as you loop through the list (do not sort the list, do not concatenate the strings, etc)
 
     Args:
-        movies (List[Tuple[str, int]]): A list of movies 
+        movies (List[Tuple[str, int]]): The list of movies
+        filter (str, optional): The filter to apply. Defaults to ''.
+        spacer (int, optional): The number of spaces between the stars and the movie title. Defaults to _SPACER.
+        max_stars (int, optional): The maximum number of stars to print, used for spacing purposes. Defaults to _MAX_STARS.
     """
-    pass  # use a while loop
+    pass # replace with your code
 
 
+# the following function is provided for you. You do not need to modify it.
+# it provides an example of a multiple return value function, it also handles
+# the menu error checking, so you can assume that the command will be one of the
+# following: _ADD_COMMAND, _LIST_COMMAND, _EXIT_COMMAND, and the options will be
+# a string, or the empty string.
 def menu() -> Tuple[str, str]:
-    """prompts the client for their command.
+    """
+    Prompts the client for their command.
 
-    Options include: Add, List, Exit, or the Movie,Rating
+    See HELP_MESSAGE for more options. Will also
+    parse the command and return the command and
+    any options that were passed in.
 
     Returns:
-        Tuple[str, str]: lowercase value, and original value of response
+        Tuple[str, str]: the command OPTION, and the value after the command, or 
+        the empty string if there was no value.
     """
-    check = input("""What would you like to do? """)
-    return check.strip().casefold(), check  # left as an example
+    check = input(_PROMPT).strip()
+    command, *rest = check.split()  # this unpacks the string split by spaces into a variable, and a list of values
+    command = command.casefold()
+    while command not in [_ADD_COMMAND, _LIST_COMMAND, _EXIT_COMMAND]:
+        print(_HELP_MESSAGE)
+        check = input(_PROMPT).strip()
+        command, *rest = check.split()
+        command = command.casefold()    
+    return command, " ".join(rest) 
 
 
 def run() -> None:
     """
     Runs the star rating application.
     """
-    command, raw = menu()
+    print(_WELCOME_MESSAGE)
+    command, options = '', ''
     movies = []
-    ## update while  loop from 04 adding option, changing function calls
+    # add your while loop here
+    # it will loop until the command is _EXIT_COMMAND
+    # inside the loop, you will need to check the command
+    # and call the appropriate function
+    # you will also need to update the movies list
+    # dont' forget to call command, options = menu() at the start of the loop! 
+
+
+    print(_GOODBYE_MESSAGE)
 
 
 if __name__ == "__main__":
