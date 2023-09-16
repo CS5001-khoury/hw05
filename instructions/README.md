@@ -97,6 +97,55 @@ in the actual comparison (think a if/elif statement).
 > It is suggested you write the check_filter function  function increasing order of difficulty. For example, get the program running where the filter just always returns True. It won't work filtering, but you will have everything adding and printing. Then add the case where the filter is an empty string. Then add the case where the filter is a string for the movie title. Only after those cases are working, add the case where the filter is an operation. This will help you get the program working faster, and you can always go back and improve the code later. Incremental development like this is very common in programming, and successful programmers practice it all the time. 
 
 
+#### Full example run with filters being used
+
+```console
+Welcome to the movie tracker!
+Enter a movie and rating to add it to the list.
+What would you like to do? add V,5
+What would you like to do? add Princess Bride, 100
+What would you like to do? add Corpse Bride,  5
+What would you like to do? add jurassic shark, -10
+What would you like to do? add Matrix  , 5
+What would you like to do? add Matrix: Reloaded , 3 
+What would you like to do? add Zombeaver,4
+What would you like to do? list
+*****  V
+*****  Princess Bride
+*****  Corpse Bride
+*      Jurassic Shark
+*****  Matrix
+***    Matrix: Reloaded
+****   Zombeaver
+What would you like to do? list bride
+*****  Princess Bride
+*****  Corpse Bride
+What would you like to do? list matrix
+*****  Matrix
+***    Matrix: Reloaded
+What would you like to do? list >= 4
+*****  V
+*****  Princess Bride
+*****  Corpse Bride
+*****  Matrix
+****   Zombeaver
+What would you like to do? List = 4
+****   Zombeaver
+What would you like to do? list < 4
+*      Jurassic Shark
+***    Matrix: Reloaded
+What would you like to do? list >= 1
+*****  V
+*****  Princess Bride
+*****  Corpse Bride
+*****  Matrix
+***    Matrix: Reloaded
+****   Zombeaver
+What would you like to do? exit
+Thanks for using the movie tracker!
+Sadly, movies will not be saved, as we still need to learn how to write to files.
+```
+
 ### Multiple Return Values?
 
 In `menu()` you see we modified it to return two values. These two values are automatically converted to a tuple (see below if curious for details). This pattern is something that you will want to follow throughout your code. 
@@ -105,9 +154,9 @@ In `menu()` you see we modified it to return two values. These two values are au
 ### Where to start?
 
 1. Most of your functions can be written independently of each other (this was intentional in the design). As such, any of these functions are good starting points, and arguably the first ones you should write. Make sure to test after writing each one independently! 
-   1. clean_title - yes, this can be a single line function! 
-   2. convert_rating
-   3. check_filter - this is the hardest function, see the pro tip above
+   * clean_title - yes, this can be a single line function! 
+   * convert_rating
+   * check_filter - this is the hardest function, see the pro tip above
 2. After you have clean_title and convert_rating working, you can write the convert_str_to_movie_tuple function. 
 3. Once all the above is working, you have the components needed to work on `run()` and `print_movies()`.
 
@@ -143,14 +192,26 @@ As always you are free to ask about the questions in MS Teams, including clarifi
 While we provide tests, reminder, you should test your own code before submitting!
 
 1. Learning (AG)
-   *
+   * clean_title with simple cases
+   * convert_rating with simple cases
+   * convert_str_to_movie_tuple with simple cases
 2. Approaching  (AG)
-   *
+   * clean_title with hard cases 
+   * convert_rating with hard cases
+   * convert_str_to_movie_tuple with hard cases
+   * check_filter with no filter (empty string)
+   * check_filter with string filter (title filter)
 3. Meets  (AG)
-  
+   * check_filter with operation filter
+   * print_list works for non-filtered and filtered
+   * basic run is correct (exit only command)
+   * run with multiple adds, lists, and then exit
    * passes pep8 style checker
 4. Exceeds  (MG)
-   * 
+   * README.md questions answered
+   * At least two test cases for all functions (except menu, run, and print_movies)
+   * Proper comments and docstrings throughout code
+   * Proper use of constants in code for star_rating_app (i.e. no typing out when a constant exists)
 
 
 AG - Auto-graded  
