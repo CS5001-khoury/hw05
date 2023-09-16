@@ -231,7 +231,7 @@ For manually graded elements, we only guarantee time to submit for a regrade IF 
 * [in/not in operator python](https://realpython.com/python-in-operator/)
   
 
-## In Operator
+### In Operator
 To check for membership of a sequence (list, tuple, string, etc) you can use the `in` operator. For example
 
 ```python
