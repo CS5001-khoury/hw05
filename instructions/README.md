@@ -104,9 +104,16 @@ In `menu()` you see we modified it to return two values. These two values are au
 
 ### Where to start?
 
-1.
+1. Most of your functions can be written independently of each other (this was intentional in the design). As such, any of these functions are good starting points, and arguably the first ones you should write. Make sure to test after writing each one independently! 
+   1. clean_title - yes, this can be a single line function! 
+   2. convert_rating
+   3. check_filter - this is the hardest function, see the pro tip above
+2. After you have clean_title and convert_rating working, you can write the convert_str_to_movie_tuple function. 
+3. Once all the above is working, you have the components needed to work on `run()` and `print_movies()`.
 
-### Remember the mantra
+While this is not the only path you can take when working on the functions, this is a possible one to consider. Remember, get an idea of the entire program the "big view", and then focus on the single task the function needs to do "small view". This assignment is much harder if you don't focus on the single task for each function!
+
+#### Remember the mantra
 
 1. Define
 2. Document
@@ -114,7 +121,6 @@ In `menu()` you see we modified it to return two values. These two values are au
 4. Test
 
 
-The question then goes how can you test all this, if the main program isn't running yet?
 
 ## Writing Tests
 
