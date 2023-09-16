@@ -68,6 +68,9 @@ def convert_str_movie_tuple(val: str) -> Tuple[str, int]:
         >>> add_movie("   JurAssic shARk  ,    1  ")
         ('Jurassic Shark', 1)
 
+    Args:
+        val (str): String in the format of "movie,rating"
+
     Returns:
         Tuple[str, int]: Movie and int rating 
     """
