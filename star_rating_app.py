@@ -61,11 +61,11 @@ def convert_str_movie_tuple(val: str) -> Tuple[str, int]:
     a string and rating is an int. 
 
     For Example:
-        >>> add_movie("v,5")
+        >>> convert_str_movie_tuple("v,5")
         ('V', 5)
-        >>> add_movie("Princess bride  ,10")
+        >>> convert_str_movie_tuple("Princess bride  ,10")
         ('Princess Bride', 10)
-        >>> add_movie("   JurAssic shARk  ,    1  ")
+        >>> convert_str_movie_tuple("   JurAssic shARk  ,    1  ")
         ('Jurassic Shark', 1)
 
     Args:
