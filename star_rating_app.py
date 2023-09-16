@@ -109,6 +109,9 @@ def convert_rating(val: int, min_stars: int = _MIN_STARS, max_stars: int = _MAX_
 
     Args:
         val (int): the rating value
+        min_stars (int, optional): the minimum number of stars to return. Defaults to _MIN_STARS.
+        max_stars (int, optional): the maximum number of stars to return. Defaults to _MAX_STARS.
+
 
     Returns:
         str: stars between min_stars and max_stars
