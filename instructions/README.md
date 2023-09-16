@@ -1,102 +1,101 @@
-# Homework 05 - Refactoring Star Rating
+# Homework 05 - Star Rating App
 
-[Refactoring] and Testing code are some of the first jobs many programmers get (often as interns). That is because it gives you the opportunity to see both bad and good code, and to help you figure out better ways to work the code (or set it up for future enhancements). 
-
-For this assignment, you will be refracting your old Star Rating code, along with adding new functionality (features!). We hope the moment you started learning about lists, you started to reflect on this assignment. It was designed to use lists. 
-
-While this week's assignment is only going to focus on Star Rating App, don't let yourself fall behind. There are a lot of nuances you are learning. 
+For this assignment, you are going to be building the skeleton of a more detailed
+star rating app. This app will allow you to add movies and their ratings, and then
+list them out. You will be making use of lists, tuples, and string manipulation in
+addition to what you have already learned throughout the course.
 
 ## Implement the Functions
-👉🏽 **TASK**:   Use the [star_rating_app.py](star_rating_app.py) as a template to update star rating. You are free to pull old functions from Homework 04, and add additional functions if it helps you. Be careful and intentional about what you copy over! You don't want to introduce errors by accident. 
+👉🏽 **TASK**:   Use the [star_rating_app.py](../star_rating_app.py).
 
 Each function is detailed with expressive comments. You will also notice there are type hints in the file.
 
 Let's work through an example:
 
 ```python
-def add_movie(val: str = '') -> Tuple[str, int]:
-    """
-    Gets a movie and rating from the client.
-    if not input is provided, get_movie_by_input()
-    is called with its values returned.
-
+def convert_str_movie_tuple(val: str) -> Tuple[str, int]:
+   """
+    Converts a string in the format of "movie,rating" to a tuple
+    It will clean up the title by calling clean_title, and will
+    convert the rating to an int. This function assumes the string
+    is correct, and in the format of "movie,rating" where movie is
+    a string and rating is an int. 
 
     For Example:
-        >>> add_movie("v,5")
+        >>> convert_str_movie_tuple("v,5")
         ('V', 5)
-        >>> add_movie("Princess bride  ,10")
+        >>> convert_str_movie_tuple("Princess bride  ,10")
         ('Princess Bride', 10)
-        >>> add_movie("   JurAssic shARk  ,    1  ")
+        >>> convert_str_movie_tuple("   JurAssic shARk  ,    1  ")
         ('Jurassic Shark', 1)
 
-        assume avatar and 3 are entered
-        >>> add_movie()              # doctest: +NORMALIZE_WHITESPACE
-        Enter a movie:
-        Enter a rating 1-5: 
-        ('Avatar', 3)
-
     Args:
-        val (str, optional): movie to add if provided as a commas separated value. Defaults to ''.
+         val (str): String in the format of "movie,rating"
 
     Returns:
         Tuple[str, int]: Movie and int rating 
-    """
-    return '', 0 # replace
+   """
+   pass
 ```
 
-This says, add_movie can now take an optional string argument. If the string is empty or not provided, then it will
-use the get_movie_by_input() function, returning the results.  If a string is provided, you can
-assume there is a comma, and split on that string. You will also want to look at `clean_title(str) -> str`.
 
 In the type hints, the contents in the brackets are the types inside the tuple or list. So Tuple\[str, int],
-means a tuple with an string value, and int value should be returned. 
+means a tuple with an string value, and int value should be returned. The capital "T" is something specific to type hints, as tuple is a specific command in python. 
+
+Reading the comments, and looking at the examples, you see the function takes a string with a comma in it of the 
+format (pattern) of "movie,rating". It then cleans up the title, and converts the rating to an int. You
+do not have to do any error checking! That will come in a future assignment.  
 
 ### Building a list of tuples?
 
-In this application, instead of building a string separated by new lines, you are building a list of tuples
+In this application you dealing with a list that is growing as more movies are added, but since the movie + rating doesn't change, those are tuples.
 
-For example, the following input into the console
-```text
-What would you like to do? v,5
-What would you like to do? Jurassic Shark , 1
-What would you like to do? Jurassic Park, 3
-What would you like to do? It's a wonderful life,4
-```
-Would create an underlining structure of 
-
-```python
-[('V', 5), ('Jurassic Shark', 1), ('Jurassic Park', 3), ("It's a wonderful life", 4)]
-```
-
-That structure (a List[Tuple[str, int]]) would be passed into `print_movie(movies)`, which then loops
-through the list, and converts the `int` part of the tuple to stars using your  `convert_rating(val: int) -> str` which can be taken from Homework 04. 
-
-The output of the list above should look like the following:
-
-```text
-*****  V
-*      Jurassic Shark
-***    Jurassic Park
-****   It's A Wonderful Life
-```
-
-Making a complete run look like:
-
+Here is an example of a running application:
 
 ```console
-What would you like to do? v,5
-What would you like to do? Jurassic Shark , 1
-What would you like to do? Jurassic Park, 3
-What would you like to do? It's a wonderful life,4
+Welcome to the movie tracker!
+Enter a movie and rating to add it to the list.
+What would you like to do? add Princess Bride,10
+What would you like to do? add Jurassic Shark,1
+What would you like to do? add Corpse Bride, 5
 What would you like to do? list
-*****  V
+*****  Princess Bride
 *      Jurassic Shark
-***    Jurassic Park
-****   It's A Wonderful Life
+*****  Corpse Bride
 What would you like to do? exit
+Thanks for using the movie tracker!
+Sadly, movies will not be saved, as we still need to learn how to write to files.
 ```
 
-> Important! Spacing matters now! We will not be removing spaces in the tests, so you will want to review string format. 
+The add commands would create an underlining structure of 
+
+```python
+[('Princess Bride', 10), ('Jurassic Shark', 1), ('Corpse Bride', 5)]
+```
+
+The list command then prints out every movie, with the star rating converting between 1 (min) and 5 (max) stars.
+There is a specific format for the rating, which we provide in the comments how to do it!
+
+
+### Filter
+The hardest function is the `check_filter` function. It takes in a `(movie,rating)` along with a filter string. The filter string is a string that can be one of the following:
+* '' - empty string, no filter
+* 'any string' - any string, will return True if the movie contains the filter string. The `in` operator will help you! Case does not matter.
+* 'operation value' - will filter the star rating based on the operation and the int value passed in. The operations are:
+  * \> - greater than
+  * < - less than
+  * = - equal to
+  * != - not equal to
+  * \>= - greater than or equal to
+  * <= - less than or equal to
+
+The last one is the hardest case, as it means you have the check the first two characters of the filter string (removing spaces if they exist, as they will in the >, <, and = case), see if it is one of those operations, and then split the string based on the space. You will then take the first part of the split string to figure out which operation to use, and the second part to convert to an int to use
+in the actual comparison (think a if/elif statement).
+
+
+> Pro Tip / Highly Suggested  
+> It is suggested you write the check_filter function  function increasing order of difficulty. For example, get the program running where the filter just always returns True. It won't work filtering, but you will have everything adding and printing. Then add the case where the filter is an empty string. Then add the case where the filter is a string for the movie title. Only after those cases are working, add the case where the filter is an operation. This will help you get the program working faster, and you can always go back and improve the code later. Incremental development like this is very common in programming, and successful programmers practice it all the time. 
+
 
 ### Multiple Return Values?
 
@@ -105,12 +104,7 @@ In `menu()` you see we modified it to return two values. These two values are au
 
 ### Where to start?
 
-1. Often when you refactor, you start with what you are not going to change. In this case, two functions will remain the same from Homework 04. 
-   * get_valid_int(prompt: str) -> int
-   * convert_rating(val: int) -> str
-2. Then start at the simplest function that can tested individually. A good target is
-   * clean_title(str) -> str
-3. Then build up from there, so maybe add_movie, and just see if you can make the tuple.
+1.
 
 ### Remember the mantra
 
@@ -133,43 +127,36 @@ But it is possible to test every function. Just include in the comments the inpu
 
 As with before, your new function should prepend test_, so the function that tests clean_title, should be `test_clean_title`.
 
-## Final Step: Reflect
+## Part 3: README.md
 
-This assignment will take some research and looking up tutorials (though the resources below are good places to start). Refactoring code has a very different feeling than building code from scratch. 
-* What are some of your thoughts and feelings of this application as it grows? 
-* What are some features you would like to see in the future? 
-* What features would you expect to see?
+👉🏽 **Task**: Answer the questions in the [README.md](../README.md) file. 
 
-* In addition to answering the above prompt in your README.md, please take a moment to describe the differences between mutable and immutable. Can you use code examples as part of your description. 
+Make sure to answer the questions in the [README.md](../README.md) file.
 
-* Understanding how immutable works, why do you think python would default to return tuples when more than one value is returned as compared to returning lists? 
-
-As a reminder, you are free to ask these questions on MS Teams, as long as you further the questions with thoughts and discussions. Concepts are free game for chatting (just don't cut and past others answers) :) 
+As always you are free to ask about the questions in MS Teams, including clarifications on the code. 
 
 ## 📝 Grading Rubric
 
 While we provide tests, reminder, you should test your own code before submitting!
 
 1. Learning (AG)
-   * The program still works with basic input - same input tested in HW04.
+   *
 2. Approaching  (AG)
-   * Clean Title works with simple inputs
-   * add movie works with simple strings
-   * print_movies prints directly from a list of tuples
+   *
 3. Meets  (AG)
-   * Clean input works with difficult / hard strings
-   * add movie works with harder strings
-   * a full run using the new input sequence option works properly
+  
    * passes pep8 style checker
 4. Exceeds  (MG)
-   * README.md added that includes answers to the reflection questions along with self-reflection.
-   * test_star_rating_app.py is included and includes valid tests for star_rating_app.py
-   * Follows good coding practices we have covered including docstrings and comments. 
+   * 
 
 
 AG - Auto-graded  
 MG - Manually graded
 
+
+
+### Submission Reminder 🚨
+For manually graded elements, we only guarantee time to submit for a regrade IF you submit by the DUE DATE. Submitting late may mean it isn't possible for the MG to be graded before the AVAILABLE BY DATE, removing any windows for your to resubmit in time. While it will be graded, it is always best to submit by the due date, so you have full opportunity to improve your grade.
 
 ## 📚 Resources
 * [String Methods](https://docs.python.org/3/library/stdtypes.html#string-methods) - a number of useful methods to strings
@@ -177,7 +164,26 @@ MG - Manually graded
 * [String Format Examples](https://docs.python.org/3/library/string.html#format-examples)
 * [String Find Example](https://www.w3schools.com/python/ref_string_find.asp)
 * [List Append Method](https://www.w3schools.com/python/ref_list_append.asp)
+* [in/not in operator python](https://realpython.com/python-in-operator/)
   
+
+## In Operator
+To check for membership of a sequence (list, tuple, string, etc) you can use the `in` operator. For example
+
+```python
+if 'a' in 'abc':
+   print("a is in abc") # this will print
+
+if 5 in [1,2,3,4]:
+   print("5 is in the list") # this will not print
+
+if 'bride' in 'Princess Bride'.casefold():
+   print("bride is in the title") # this will print, but only because of the casefold!
+```
+
+You can explore with the `in` operator in the python shell to see how it works.
+
+
 ### Multiple Return Types, Tuple?
 
 In python, it is very common to have multiple values returned from a function. 
@@ -192,6 +198,7 @@ def my_func():
 values = my_func()
 print(values)
 ```
+See [Visualization](https://pythontutor.com/render.html#code=def%20my_func%28%29%3A%0A%20%20%20return%2010,%205%0A%0Avalues%20%3D%20my_func%28%29%0Aprint%28values%29%0A%0A%23%23%20also%0Aprint%28values%5B0%5D%2B10%29&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false)
 
 the values `(10, 5)` would be printed as the tuple. You can also access items in that tuple.
 
@@ -215,7 +222,7 @@ would print
 10
 5
 ```
-to the screen. 
+to the screen. See [Visualization](https://pythontutor.com/render.html#code=def%20my_func%28%29%3A%0A%20%20%20return%2010,%205%0A%0Aone,%20two%20%3D%20my_func%28%29%0A%0Aprint%28one%29%20%20%0Aprint%28two%29&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false)
 
 The code is essentially saying
 
@@ -230,4 +237,3 @@ Needless to say, the automatic unpacking of values is easier to read in this cas
 exact number of return values.  Packing by default has a lot of uses. This [article on unpacking](https://stackabuse.com/unpacking-in-python-beyond-parallel-assignment/) has a lot of information (more than you need right now), but something to save to read for later. :relaxed:
 
 
-[Refactoring]: https://en.wikipedia.org/wiki/Code_refactoring
