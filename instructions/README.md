@@ -90,7 +90,7 @@ The hardest function is the `check_filter` function. It takes in a `(movie,ratin
   * <= - less than or equal to
 
 The last one is the hardest case, as it means you have the check the first two characters of the filter string (removing spaces if they exist, as they will in the >, <, and = case), see if it is one of those operations, and then split the string based on the space. You will then take the first part of the split string to figure out which operation to use, and the second part to convert to an int to use
-in the actual comparison (think a if/elif statement).
+in the actual comparison (think a if/elif statement). You could also use the python [startswith](https://www.w3schools.com/python/ref_string_startswith.asp) method.
 
 
 > Pro Tip / Highly Suggested  
@@ -157,7 +157,7 @@ In `menu()` you see we modified it to return two values. These two values are au
    * clean_title - yes, this can be a single line function! 
    * convert_rating
    * check_filter - this is the hardest function, see the pro tip above
-2. After you have clean_title and convert_rating working, you can write the convert_str_to_movie_tuple function. 
+2. After you have clean_title working, you can write the convert_str_to_movie_tuple function. 
 3. Once all the above is working, you have the components needed to work on `run()` and `print_movies()`.
 
 While this is not the only path you can take when working on the functions, this is a possible one to consider. Remember, get an idea of the entire program the "big view", and then focus on the single task the function needs to do "small view". This assignment is much harder if you don't focus on the single task for each function!
